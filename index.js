@@ -66,39 +66,38 @@ if (contactForm) {
   });
 }
 
+
+
 document.getElementById("leadForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
   const submitBtn = document.querySelector("#leadForm button[type='submit']");
-  submitBtn.innerText = "Submitting...";
   submitBtn.disabled = true;
+  submitBtn.innerText = "Submitting...";
 
   const data = {
-    name: document.getElementById("name").value.trim(),
-    business: document.getElementById("business").value.trim(),
-    email: document.getElementById("email").value.trim(),
-    phone: document.getElementById("phone").value.trim(),
+    name: document.getElementById("name").value,
+    business: document.getElementById("business").value,
+    email: document.getElementById("email").value,
+    phone: document.getElementById("phone").value,
     spend: document.getElementById("spend").value,
-    help: document.getElementById("help").value.trim()
+    help: document.getElementById("help").value
   };
 
   fetch("https://script.google.com/macros/s/AKfycbwf1blGTWHyhSK_fVbp401ygvQbsgcXuM8OdpyyDRNunFXGrDl3ooAp2IedyeaAQ6AZpQ/exec", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(data)
+    body: JSON.stringify(data),
+    mode: "no-cors"
   })
-    .then(response => response.json())
-    .then(() => {
-      alert("✅ Thank you! Your enquiry has been submitted.");
-      document.getElementById("leadForm").reset();
-    })
-    .catch(() => {
-      alert("❌ Something went wrong. Please try again.");
-    })
-    .finally(() => {
-      submitBtn.innerText = "Submit enquiry";
-      submitBtn.disabled = false;
-    });
+  .then(() => {
+    alert("✅ Thank you! Your enquiry has been submitted.");
+    document.getElementById("leadForm").reset();
+  })
+  .catch(() => {
+    alert("❌ Submission failed. Please try again.");
+  })
+  .finally(() => {
+    submitBtn.disabled = false;
+    submitBtn.innerText = "Submit enquiry";
+  });
 });
