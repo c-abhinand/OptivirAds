@@ -83,20 +83,18 @@ document.getElementById("leadForm").addEventListener("submit", function(e) {
     help: document.getElementById("help").value
   };
 
-  fetch("https://script.google.com/macros/s/AKfycbyM9XesTHHfjLbApqIJFYIEIVDgICqywkgCvnCEwvB3WZ1YhCb2Qe6Dqz6cBUXQnfLk/exec", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(data)
-  })
-  .then(res => res.json())
-  .then(() => {
-    alert("Thank you! Your details have been saved.");
-    document.getElementById("leadForm").reset();
-  })
-  .catch(() => {
-    alert("Something went wrong. Please try again.");
-  });
+ fetch("https://script.google.com/macros/s/AKfycbyM9XesTHHfjLbApqIJFYIEIVDgICqywkgCvnCEwvB3WZ1YhCb2Qe6Dqz6cBUXQnfLk/exec", {
+  method: "POST",
+  mode: "no-cors",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify(data)
+})
+.then(() => {
+  alert("Thank you! Your details have been saved.");
+  document.getElementById("leadForm").reset();
+})
+.catch(() => {
+  alert("Something went wrong. Please try again.");
 });
-
