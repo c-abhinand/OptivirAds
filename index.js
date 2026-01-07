@@ -1,4 +1,9 @@
 console.log("Optivirads form JS loaded");
+
+// ==========================================
+// 1. NAVIGATION & UI LOGIC
+// ==========================================
+
 // Mobile nav toggle
 const navToggle = document.querySelector('.nav-toggle');
 const nav = document.querySelector('.nav');
@@ -57,26 +62,13 @@ if (yearSpan) {
   yearSpan.textContent = new Date().getFullYear();
 }
 
-// Simple fake form handler (prevent default submit for now)
-const contactForm = document.querySelector('.contact-form');
-if (contactForm) {
-  contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    alert('Thank you! Your enquiry has been submitted.');
-    contactForm.reset();
-  });
-}
+// ==========================================
+// 2. GOOGLE SHEETS FORM SUBMISSION
+// ==========================================
 
-
-
-//Form submission
-
-
-// index.js
-
-const scriptURL = 'https://script.google.com/macros/s/AKfycbxAfwMJEFJa13DQ7rurnvgwqYGg5LPGwPnrk5eDgP-dZqy1bz-xynXrzL5DT4oMc9E-/exec'; // <--- PASTE YOUR URL HERE
+const scriptURL = 'https://script.google.com/macros/s/AKfycbxAfwMJEFJa13DQ7rurnvgwqYGg5LPGwPnrk5eDgP-dZqy1bz-xynXrzL5DT4oMc9E-/exec';
 const form = document.querySelector('#leadForm');
-const btn = document.querySelector('.btn-full'); // Select the submit button
+const btn = document.querySelector('.contact-form button[type="submit"]'); // Adjusted selector to be safe
 
 if (form) {
   form.addEventListener('submit', e => {
@@ -87,12 +79,13 @@ if (form) {
     btn.innerText = 'Sending...';
     btn.disabled = true;
 
+    // Send data
     fetch(scriptURL, { method: 'POST', body: new FormData(form)})
       .then(response => {
         // Success!
         alert('Thank you! Your enquiry has been sent successfully.');
         
-        // Reset the form
+        // Reset the form ONLY after successful send
         form.reset();
         
         // Reset button
@@ -110,6 +103,3 @@ if (form) {
       });
   });
 }
-
-// Add the current year to the footer automatically
-document.getElementById('year').textContent = new Date().getFullYear();
