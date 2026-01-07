@@ -71,30 +71,45 @@ if (contactForm) {
 
 //Form submission
 
-document.getElementById("leadForm").addEventListener("submit", function(e) {
-  e.preventDefault();
 
-  const data = {
-    name: document.getElementById("name").value,
-    business: document.getElementById("business").value,
-    email: document.getElementById("email").value,
-    phone: document.getElementById("phone").value,
-    spend: document.getElementById("spend").value,
-    help: document.getElementById("help").value
-  };
+// index.js
 
- fetch("https://script.google.com/macros/s/AKfycbyM9XesTHHfjLbApqIJFYIEIVDgICqywkgCvnCEwvB3WZ1YhCb2Qe6Dqz6cBUXQnfLk/exec", {
-  method: "POST",
-  mode: "no-cors",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify(data)
-})
-.then(() => {
-  alert("Thank you! Your details have been saved.");
-  document.getElementById("leadForm").reset();
-})
-.catch(() => {
-  alert("Something went wrong. Please try again.");
-});
+const scriptURL = 'YOUR_GOOGLE_SCRIPT_URL_HERE'; // <--- PASTE YOUR URL HERE
+const form = document.querySelector('#leadForm');
+const btn = document.querySelector('.btn-full'); // Select the submit button
+
+if (form) {
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    
+    // Change button text to indicate processing
+    const originalBtnText = btn.innerText;
+    btn.innerText = 'Sending...';
+    btn.disabled = true;
+
+    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+      .then(response => {
+        // Success!
+        alert('Thank you! Your enquiry has been sent successfully.');
+        
+        // Reset the form
+        form.reset();
+        
+        // Reset button
+        btn.innerText = originalBtnText;
+        btn.disabled = false;
+      })
+      .catch(error => {
+        // Error!
+        console.error('Error!', error.message);
+        alert('Something went wrong. Please try again or contact us via WhatsApp.');
+        
+        // Reset button
+        btn.innerText = originalBtnText;
+        btn.disabled = false;
+      });
+  });
+}
+
+// Add the current year to the footer automatically
+document.getElementById('year').textContent = new Date().getFullYear();
