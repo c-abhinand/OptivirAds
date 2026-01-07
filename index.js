@@ -68,6 +68,8 @@ if (contactForm) {
 
 
 
+//Form submission
+
 document.getElementById("leadForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
@@ -75,19 +77,18 @@ document.getElementById("leadForm").addEventListener("submit", function (e) {
   submitBtn.disabled = true;
   submitBtn.innerText = "Submitting...";
 
-  const data = {
-    name: document.getElementById("name").value,
-    business: document.getElementById("business").value,
-    email: document.getElementById("email").value,
-    phone: document.getElementById("phone").value,
-    spend: document.getElementById("spend").value,
-    help: document.getElementById("help").value
-  };
+  const formData = new URLSearchParams();
+  formData.append("name", document.getElementById("name").value);
+  formData.append("business", document.getElementById("business").value);
+  formData.append("email", document.getElementById("email").value);
+  formData.append("phone", document.getElementById("phone").value);
+  formData.append("spend", document.getElementById("spend").value);
+  formData.append("help", document.getElementById("help").value);
 
   fetch("https://script.google.com/macros/s/AKfycbwf1blGTWHyhSK_fVbp401ygvQbsgcXuM8OdpyyDRNunFXGrDl3ooAp2IedyeaAQ6AZpQ/exec", {
     method: "POST",
-    body: JSON.stringify(data),
-    mode: "no-cors"
+    mode: "no-cors",
+    body: formData
   })
   .then(() => {
     alert("✅ Thank you! Your enquiry has been submitted.");
@@ -101,3 +102,4 @@ document.getElementById("leadForm").addEventListener("submit", function (e) {
     submitBtn.innerText = "Submit enquiry";
   });
 });
+
