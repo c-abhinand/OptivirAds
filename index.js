@@ -71,36 +71,36 @@ if (contactForm) {
 
 //Form submission
 
-document.getElementById("leadForm").addEventListener("submit", function (e) {
-  e.preventDefault();
+document.addEventListener("DOMContentLoaded", function () {
+  console.log("index loaded");
 
-  const submitBtn = document.querySelector("#leadForm button[type='submit']");
-  submitBtn.disabled = true;
-  submitBtn.innerText = "Submitting...";
+  const form = document.getElementById("leadForm");
+  if (!form) return;
 
-  const formData = new URLSearchParams();
-  formData.append("name", document.getElementById("name").value);
-  formData.append("business", document.getElementById("business").value);
-  formData.append("email", document.getElementById("email").value);
-  formData.append("phone", document.getElementById("phone").value);
-  formData.append("spend", document.getElementById("spend").value);
-  formData.append("help", document.getElementById("help").value);
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
 
-  fetch("https://script.google.com/macros/s/AKfycbwf1blGTWHyhSK_fVbp401ygvQbsgcXuM8OdpyyDRNunFXGrDl3ooAp2IedyeaAQ6AZpQ/exec", {
-    method: "POST",
-    mode: "no-cors",
-    body: formData
-  })
-  .then(() => {
-    alert("✅ Thank you! Your enquiry has been submitted.");
-    document.getElementById("leadForm").reset();
-  })
-  .catch(() => {
-    alert("❌ Submission failed. Please try again.");
-  })
-  .finally(() => {
-    submitBtn.disabled = false;
-    submitBtn.innerText = "Submit enquiry";
+    const submitBtn = form.querySelector("button[type='submit']");
+    submitBtn.disabled = true;
+    submitBtn.innerText = "Submitting...";
+
+    const formData = new FormData(form);
+
+    fetch("https://script.google.com/macros/s/AKfycbwf1blGTWHyhSK_fVbp401ygvQbsgcXuM8OdpyyDRNunFXGrDl3ooAp2IedyeaAQ6AZpQ/exec", {
+      method: "POST",
+      body: formData
+    })
+    .then(() => {
+      alert("✅ Thank you! Your enquiry has been submitted.");
+      form.reset();
+    })
+    .catch(() => {
+      alert("❌ Something went wrong. Please try again.");
+    })
+    .finally(() => {
+      submitBtn.disabled = false;
+      submitBtn.innerText = "Submit enquiry";
+    });
   });
 });
 
