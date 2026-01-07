@@ -74,7 +74,7 @@ if (contactForm) {
 
 // index.js
 
-const scriptURL = 'YOUR_GOOGLE_SCRIPT_URL_HERE'; // <--- PASTE YOUR URL HERE
+const scriptURL = 'https://script.google.com/macros/s/AKfycbxAfwMJEFJa13DQ7rurnvgwqYGg5LPGwPnrk5eDgP-dZqy1bz-xynXrzL5DT4oMc9E-/exec'; // <--- PASTE YOUR URL HERE
 const form = document.querySelector('#leadForm');
 const btn = document.querySelector('.btn-full'); // Select the submit button
 
