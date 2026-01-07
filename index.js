@@ -72,8 +72,6 @@ if (contactForm) {
 //Form submission
 
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("index loaded");
-
   const form = document.getElementById("leadForm");
   if (!form) return;
 
@@ -86,21 +84,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const formData = new FormData(form);
 
+    // Fire-and-forget submission
     fetch("https://script.google.com/macros/s/AKfycbwf1blGTWHyhSK_fVbp401ygvQbsgcXuM8OdpyyDRNunFXGrDl3ooAp2IedyeaAQ6AZpQ/exec", {
       method: "POST",
-      body: formData
-    })
-    .then(() => {
-      alert("✅ Thank you! Your enquiry has been submitted.");
-      form.reset();
-    })
-    .catch(() => {
-      alert("❌ Something went wrong. Please try again.");
-    })
-    .finally(() => {
-      submitBtn.disabled = false;
-      submitBtn.innerText = "Submit enquiry";
+      body: formData,
+      mode: "no-cors"
     });
+
+    // DO NOT wait for response
+    alert("✅ Thank you! Your enquiry has been submitted.");
+    form.reset();
+
+    submitBtn.disabled = false;
+    submitBtn.innerText = "Submit enquiry";
   });
 });
+
 
