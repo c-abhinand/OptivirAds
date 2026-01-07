@@ -71,33 +71,32 @@ if (contactForm) {
 
 //Form submission
 
-document.addEventListener("DOMContentLoaded", function () {
-  const form = document.getElementById("leadForm");
-  if (!form) return;
+document.getElementById("leadForm").addEventListener("submit", function(e) {
+  e.preventDefault();
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
+  const data = {
+    name: document.getElementById("name").value,
+    business: document.getElementById("business").value,
+    email: document.getElementById("email").value,
+    phone: document.getElementById("phone").value,
+    spend: document.getElementById("spend").value,
+    help: document.getElementById("help").value
+  };
 
-    const submitBtn = form.querySelector("button[type='submit']");
-    submitBtn.disabled = true;
-    submitBtn.innerText = "Submitting...";
-
-    const formData = new FormData(form);
-
-    // Fire-and-forget submission
-    fetch("https://script.google.com/macros/s/AKfycbwf1blGTWHyhSK_fVbp401ygvQbsgcXuM8OdpyyDRNunFXGrDl3ooAp2IedyeaAQ6AZpQ/exec", {
-      method: "POST",
-      body: formData,
-      mode: "no-cors"
-    });
-
-    // DO NOT wait for response
-    alert("✅ Thank you! Your enquiry has been submitted.");
-    form.reset();
-
-    submitBtn.disabled = false;
-    submitBtn.innerText = "Submit enquiry";
+  fetch("https://script.google.com/macros/s/AKfycbyM9XesTHHfjLbApqIJFYIEIVDgICqywkgCvnCEwvB3WZ1YhCb2Qe6Dqz6cBUXQnfLk/exec", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  })
+  .then(res => res.json())
+  .then(() => {
+    alert("Thank you! Your details have been saved.");
+    document.getElementById("leadForm").reset();
+  })
+  .catch(() => {
+    alert("Something went wrong. Please try again.");
   });
 });
-
 
