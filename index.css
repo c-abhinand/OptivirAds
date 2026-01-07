@@ -791,3 +791,38 @@ textarea {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+
+/* Add this to your index.css file */
+
+/* Container for the icons to sit side-by-side */
+.social-icons {
+  display: flex;
+  gap: 1rem; /* Space between icons */
+  margin-top: 1rem;
+}
+
+/* Icon Link Styling */
+.social-icons a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Initial color (light gray/muted) to match footer text */
+  color: #a0a0a0; 
+  transition: all 0.3s ease;
+}
+
+/* SVG Sizing and coloring */
+.social-icons svg {
+  width: 24px; /* Adjust icon size here */
+  height: 24px;
+  /* This makes the SVG use the text color defined in the 'a' tag above */
+  fill: currentColor; 
+}
+
+/* Hover Effects */
+.social-icons a:hover {
+  /* Change this hex code to your brand's primary neon color (e.g., #00d4ff or #ff0055) */
+  color: #ffffff; 
+  transform: translateY(-3px); /* Slight lift effect on hover */
+}
