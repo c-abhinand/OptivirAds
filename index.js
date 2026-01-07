@@ -1,3 +1,4 @@
+console.log("Optivirads form JS loaded");
 // Mobile nav toggle
 const navToggle = document.querySelector('.nav-toggle');
 const nav = document.querySelector('.nav');
