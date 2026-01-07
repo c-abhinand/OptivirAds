@@ -1,4 +1,4 @@
-console.log("Optivirads form JS loaded");
+console.log("Optivirads form JS reloaded");
 
 // ==========================================
 // 1. NAVIGATION & UI LOGIC
